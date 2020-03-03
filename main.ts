@@ -153,7 +153,7 @@ namespace kitronik_mini_motor {
             }
 
             // Function call for the motor drive with the previously set currentMotor and currentDirection
-            motorOn(currentMotor, currentDirection, 100)
+            motorOn(currentMotor, currentDirection, 100) 
             // Delay between each step (1ms - 80ms) determined by the user by setting the speed 0-100%
             basic.pause(stepperDelay)
 
