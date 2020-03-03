@@ -136,32 +136,24 @@ namespace kitronik_mini_motor {
 
         // Loop to run until the number of motor steps set by the user is reached
         while (stepCounter < steps) {
-            pins.digitalWritePin(DigitalPin.P13, 0)
-            pins.digitalWritePin(DigitalPin.P14, 0)
-            pins.digitalWritePin(DigitalPin.P15, 0)
-            pins.digitalWritePin(DigitalPin.P16, 0)
-
-            if (stepStage == 1) {
-                //Motor 1, CCW
-                pins.digitalWritePin(DigitalPin.P13, 1)
-                pins.digitalWritePin(DigitalPin.P14, 0)
+            // This section uses the current stepStage to set which Motor Output should be used
+            if (stepStage == 1 || stepStage == 3) {
+                currentMotor = Motors.Motor1
             }
-            else if (stepStage == 2) {
-                //Motor 2, CW
-                pins.digitalWritePin(DigitalPin.P15, 0)
-                pins.digitalWritePin(DigitalPin.P16, 1)
-            }
-            else if (stepStage == 2) {
-                //Motor 1, CW
-                pins.digitalWritePin(DigitalPin.P13, 0)
-                pins.digitalWritePin(DigitalPin.P14, 1)
-            }
-            else if (stepStage == 2) {
-                //Motor 2, CCW
-                pins.digitalWritePin(DigitalPin.P15, 1)
-                pins.digitalWritePin(DigitalPin.P16, 0)
+            else {
+                currentMotor = Motors.Motor2
             }
 
+            // This section uses the current stepStage to set which direction the Motor Output should be driven
+            if (stepStage == 1 || stepStage == 4) {
+                currentDirection = MotorDirection.counterClockwise
+            }
+            else {
+                currentDirection = MotorDirection.clockwise
+            }
+
+            // Function call for the motor drive with the previously set currentMotor and currentDirection
+            motorOn(currentMotor, currentDirection, 100)
             // Delay between each step (1ms - 80ms) determined by the user by setting the speed 0-100%
             basic.pause(stepperDelay)
 
