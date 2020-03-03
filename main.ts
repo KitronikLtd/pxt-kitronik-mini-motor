@@ -136,6 +136,11 @@ namespace kitronik_mini_motor {
 
         // Loop to run until the number of motor steps set by the user is reached
         while (stepCounter < steps) {
+            pins.digitalWritePin(DigitalPin.P13, 0)
+            pins.digitalWritePin(DigitalPin.P14, 0)
+            pins.digitalWritePin(DigitalPin.P15, 0)
+            pins.digitalWritePin(DigitalPin.P16, 0)
+
             if (stepStage == 1) {
                 //Motor 1, CCW
                 pins.digitalWritePin(DigitalPin.P13, 1)
